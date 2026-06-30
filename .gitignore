@@ -1,0 +1,32 @@
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+!*.example.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Mobile — see mobile/.gitignore for Flutter-specific rules
+mobile/build/
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+
+# Backend — Supabase
+backend/.branches/
+backend/.temp/
+backend/supabase/.temp/
+
+# Node (if any tooling)
+node_modules/

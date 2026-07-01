@@ -7,9 +7,12 @@ import '../../features/auth/presentation/register_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/ride/presentation/ride_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
 import 'app_shell.dart';
 
 part 'app_router.g.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 @riverpod
 GoRouter appRouter(AppRouterRef ref) {
@@ -25,6 +28,7 @@ GoRouter appRouter(AppRouterRef ref) {
   });
 
   return GoRouter(
+    navigatorKey: _rootNavigatorKey,
     initialLocation: '/home',
     refreshListenable: notifier,
     redirect: (context, state) {
@@ -75,6 +79,14 @@ GoRouter appRouter(AppRouterRef ref) {
                 path: '/profile',
                 name: 'profile',
                 builder: (context, state) => const ProfileScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'settings',
+                    name: 'settings',
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (context, state) => const SettingsScreen(),
+                  ),
+                ],
               ),
             ],
           ),

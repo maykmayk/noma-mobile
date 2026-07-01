@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../shared/widgets/user_avatar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import '../../../shared/widgets/page_header.dart';
 import '../../auth/presentation/auth_notifier.dart';
+import '../domain/profile_stats.dart';
 import 'profile_providers.dart';
+import 'widgets/profile_header.dart';
+import 'widgets/profile_kpi.dart';
+
+const _zeroStats = ProfileStats(ridesCount: 0, kmTravelled: 0);
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -11,13 +18,22 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider);
     final profileAsync = ref.watch(currentProfileProvider);
+    final statsAsync = ref.watch(profileStatsProvider);
     final isSigningOut = ref.watch(authNotifierProvider).isLoading;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('noma'),
+      appBar: PageHeader(
+        title: 'Profile',
         actions: [
+          IconButton(
+            icon: SvgPicture.asset(
+              'assets/icons/ic_settings.svg',
+              width: 20,
+              height: 20,
+            ),
+            onPressed: () => context.push('/profile/settings'),
+          ),
+          const SizedBox(width: 16),
           IconButton(
             icon: isSigningOut
                 ? const SizedBox(
@@ -25,38 +41,36 @@ class ProfileScreen extends ConsumerWidget {
                     height: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Icon(Icons.logout),
+                : SvgPicture.asset(
+                    'assets/icons/ic_logout.svg',
+                    width: 20,
+                    height: 20,
+                  ),
             onPressed: isSigningOut
                 ? null
                 : () => ref.read(authNotifierProvider.notifier).signOut(),
           ),
         ],
       ),
-      body: Center(
-        child: profileAsync.when(
-          loading: () => const CircularProgressIndicator(),
-          error: (e, _) => Text('Errore: $e'),
-          data: (profile) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              UserAvatar(
-                avatarNumber: profile?.avatarNumber ?? 1,
-                size: 96,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                profile?.username ?? user?.nickname ?? user?.email ?? '',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+      body: profileAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, _) => Center(child: Text('Errore: $e')),
+        data: (profile) => SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ProfileHeader(profile: profile, user: user),
+                const SizedBox(height: 48),
+                statsAsync.when(
+                  loading: () => const CircularProgressIndicator(),
+                  error: (_, __) => const ProfileKpi(stats: _zeroStats),
+                  data: (stats) => ProfileKpi(stats: stats),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                user?.email ?? '',
-                style: const TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

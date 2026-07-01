@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+abstract final class AppSpacing {
+  static const double pageX = 28.0;
+  static const double headerHeight = 64.0;
+}
+
 abstract final class AppColors {
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
@@ -95,6 +100,26 @@ class AppTheme {
       ),
       textTheme: _applyTextDefaults(
         base.textTheme.apply(fontFamily: _fontFamily),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          splashFactory: NoSplash.splashFactory,
+          highlightColor: Colors.transparent,
+        ).copyWith(
+          overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+        ),
+      ),
+      appBarTheme: const AppBarTheme(
+        centerTitle: false,
+        toolbarHeight: AppSpacing.headerHeight,
+        titleSpacing: AppSpacing.pageX,
+        actionsPadding: EdgeInsets.only(right: AppSpacing.pageX),
+        titleTextStyle: TextStyle(
+          fontFamily: _fontFamily,
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          color: AppColors.mainContrast,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

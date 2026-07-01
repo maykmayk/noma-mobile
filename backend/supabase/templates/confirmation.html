@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verifica la tua email</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; margin: 0; padding: 40px 20px; }
+    .card { background: #fff; border-radius: 16px; max-width: 420px; margin: 0 auto; padding: 40px 32px; }
+    .brand { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 32px; }
+    h1 { font-size: 24px; font-weight: 700; color: #111; margin: 0 0 12px; }
+    p { font-size: 15px; color: #666; line-height: 1.5; margin: 0 0 24px; }
+    .otp { font-size: 40px; font-weight: 700; letter-spacing: 10px; color: #111; text-align: center; background: #f5f5f5; border-radius: 12px; padding: 20px; margin: 0 0 24px; }
+    .note { font-size: 13px; color: #999; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">noma</div>
+    <h1>Verifica la tua email</h1>
+    <p>Inserisci questo codice nell'app per completare la registrazione.</p>
+    <div class="otp">{{ .Token }}</div>
+    <p class="note">Il codice scade in 60 minuti. Se non hai richiesto questo codice, ignora questa email.</p>
+  </div>
+</body>
+</html>

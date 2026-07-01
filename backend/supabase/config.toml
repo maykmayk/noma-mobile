@@ -61,8 +61,12 @@ enable_anonymous_sign_ins = false
 
 [auth.email]
 enable_signup = true
-double_confirm_changes = true
+double_confirm_changes = false
 enable_confirmations = false
+
+[auth.email.template.confirmation]
+subject = "Il tuo codice di verifica — Noma"
+content_path = "./supabase/templates/confirmation.html"
 
 [auth.sms]
 enable_signup = false

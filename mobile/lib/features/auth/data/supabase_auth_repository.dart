@@ -13,10 +13,26 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> signIn({
-    required String email,
+    required String emailOrUsername,
     required String password,
   }) async {
+    final email = emailOrUsername.contains('@')
+        ? emailOrUsername
+        : await _resolveUsernameToEmail(emailOrUsername);
+
     await _client.auth.signInWithPassword(email: email, password: password);
+  }
+
+  Future<String> _resolveUsernameToEmail(String username) async {
+    final result = await _client.rpc(
+      'get_email_by_username',
+      params: {'p_username': username},
+    );
+    if (result == null) {
+      // Same message Supabase uses — avoids revealing whether the username exists.
+      throw const AuthException('Invalid login credentials');
+    }
+    return result as String;
   }
 
   @override

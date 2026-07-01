@@ -29,12 +29,12 @@ class AuthNotifier extends StateNotifier<AsyncValue<void>> {
   final AuthRepository _repository;
 
   Future<void> signIn({
-    required String email,
+    required String emailOrUsername,
     required String password,
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
-      () => _repository.signIn(email: email, password: password),
+      () => _repository.signIn(emailOrUsername: emailOrUsername, password: password),
     );
   }
 

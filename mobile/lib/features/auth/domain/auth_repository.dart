@@ -1,5 +1,6 @@
 abstract interface class AuthRepository {
-  Future<void> signIn({required String email, required String password});
+  /// [emailOrUsername] accepts either an email address or a username.
+  Future<void> signIn({required String emailOrUsername, required String password});
   Future<void> signUp({
     required String email,
     required String password,

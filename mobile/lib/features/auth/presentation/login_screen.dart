@@ -16,12 +16,12 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _identifierController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _identifierController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -29,7 +29,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     await ref.read(authNotifierProvider.notifier).signIn(
-          email: _emailController.text.trim(),
+          emailOrUsername: _identifierController.text.trim(),
           password: _passwordController.text,
         );
     if (!mounted) return;
@@ -77,16 +77,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 child: Column(
                   children: [
                     AppTextField(
-                      label: 'Email',
-                      hint: 'nome@esempio.com',
-                      controller: _emailController,
+                      label: 'Email o username',
+                      hint: 'Email o username',
+                      controller: _identifierController,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       validator: (v) {
                         if (v == null || v.trim().isEmpty) {
-                          return 'Inserisci email';
+                          return 'Inserisci email o username';
                         }
-                        if (!v.contains('@')) return 'Email non valida';
                         return null;
                       },
                     ),

@@ -45,8 +45,7 @@ class _AppTextFieldState extends State<AppTextField> {
         Text(
           widget.label,
           style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
+            fontSize: 14,
             color: AppColors.textSecondary,
           ),
         ),

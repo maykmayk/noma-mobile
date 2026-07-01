@@ -90,7 +90,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   children: [
                     AppTextField(
                       label: 'Nickname',
-                      hint: 'Il tuo nome su Noma',
+                      hint: 'Username',
                       controller: _nicknameController,
                       textInputAction: TextInputAction.next,
                       validator: (v) {
@@ -104,7 +104,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     const SizedBox(height: 16),
                     AppTextField(
                       label: 'Email',
-                      hint: 'nome@esempio.com',
+                      hint: 'Email',
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,

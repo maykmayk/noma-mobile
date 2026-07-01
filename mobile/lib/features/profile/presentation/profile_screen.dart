@@ -7,7 +7,9 @@ import '../../auth/presentation/auth_notifier.dart';
 import '../domain/profile_stats.dart';
 import 'profile_providers.dart';
 import 'widgets/profile_header.dart';
+import 'widgets/profile_header_skeleton.dart';
 import 'widgets/profile_kpi.dart';
+import 'widgets/profile_kpi_skeleton.dart';
 
 const _zeroStats = ProfileStats(ridesCount: 0, kmTravelled: 0);
 
@@ -52,25 +54,25 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: profileAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Errore: $e')),
-        data: (profile) => SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ProfileHeader(profile: profile, user: user),
-                const SizedBox(height: 48),
-                statsAsync.when(
-                  loading: () => const CircularProgressIndicator(),
-                  error: (_, __) => const ProfileKpi(stats: _zeroStats),
-                  data: (stats) => ProfileKpi(stats: stats),
-                ),
-              ],
-            ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              profileAsync.when(
+                loading: () => const ProfileHeaderSkeleton(),
+                error: (_, __) => const SizedBox.shrink(),
+                data: (profile) => ProfileHeader(profile: profile, user: user),
+              ),
+              const SizedBox(height: 48),
+              statsAsync.when(
+                loading: () => const ProfileKpiSkeleton(),
+                error: (_, __) => const ProfileKpi(stats: _zeroStats),
+                data: (stats) => ProfileKpi(stats: stats),
+              ),
+            ],
           ),
         ),
       ),

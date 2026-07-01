@@ -5,6 +5,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/ride/presentation/ride_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
+import 'app_shell.dart';
 
 part 'app_router.g.dart';
 
@@ -22,7 +25,7 @@ GoRouter appRouter(AppRouterRef ref) {
   });
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/home',
     refreshListenable: notifier,
     redirect: (context, state) {
       final loggedIn = Supabase.instance.client.auth.currentSession != null;
@@ -44,10 +47,38 @@ GoRouter appRouter(AppRouterRef ref) {
         name: 'register',
         builder: (context, state) => const RegisterScreen(),
       ),
-      GoRoute(
-        path: '/home',
-        name: 'home',
-        builder: (context, state) => const HomeScreen(),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            AppShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/home',
+                name: 'home',
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/ride',
+                name: 'ride',
+                builder: (context, state) => const RideScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/profile',
+                name: 'profile',
+                builder: (context, state) => const ProfileScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );

@@ -6,6 +6,7 @@ abstract final class AppColors {
   static const mainContrast = Color(0xFF262626);
   static const textSecondary = Color(0xFF747474);
   static const border = Color(0xFFD4D4D4);
+  static const borderSecondary = Color(0xFFF2F2F2);
   static const lightBg = Color(0xFFF5F5F5);
 }
 

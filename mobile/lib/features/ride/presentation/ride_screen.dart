@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class RideScreen extends StatelessWidget {
+  const RideScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         title: const Text('noma'),
       ),
       body: const Center(
-        child: Text('Home'),
+        child: Text('Ride'),
       ),
     );
   }

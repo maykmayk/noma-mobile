@@ -9,7 +9,7 @@ final authStateChangesProvider = StreamProvider<AuthState>((ref) {
 });
 
 // Current logged-in user. Null when logged out.
-// Use this anywhere in the app to read id, email, nickname, accessToken.
+// Use this anywhere in the app to read id, email, username, accessToken.
 final currentUserProvider = Provider<AppUser?>((ref) {
   // Re-computes whenever auth state changes.
   ref.watch(authStateChangesProvider);
@@ -41,7 +41,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<void>> {
   Future<void> signUp({
     required String email,
     required String password,
-    required String nickname,
+    required String username,
     required DateTime birthDate,
   }) async {
     state = const AsyncValue.loading();
@@ -49,7 +49,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<void>> {
       () => _repository.signUp(
         email: email,
         password: password,
-        nickname: nickname,
+        username: username,
         birthDate: birthDate,
       ),
     );

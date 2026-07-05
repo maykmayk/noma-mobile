@@ -20,13 +20,14 @@ class AppLink extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: text,
-          style: const TextStyle(color: AppColors.textSecondary),
+          style: const TextStyle(color: AppColors.textSecondary, letterSpacing: -0.2),
           children: [
             TextSpan(
               text: linkText,
               style: const TextStyle(
                 color: AppColors.mainContrast,
-                fontWeight: FontWeight.w600,
+                letterSpacing: -0.2,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],

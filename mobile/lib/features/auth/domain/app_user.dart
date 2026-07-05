@@ -4,20 +4,20 @@ class AppUser {
   const AppUser({
     required this.id,
     required this.email,
-    required this.nickname,
+    required this.username,
     required this.accessToken,
   });
 
   final String id;
   final String email;
-  final String? nickname;
+  final String? username;
   final String accessToken;
 
   factory AppUser.fromSession(Session session) {
     return AppUser(
       id: session.user.id,
       email: session.user.email ?? '',
-      nickname: session.user.userMetadata?['nickname'] as String?,
+      username: session.user.userMetadata?['username'] as String?,
       accessToken: session.accessToken,
     );
   }

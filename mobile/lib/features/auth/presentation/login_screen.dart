@@ -50,78 +50,70 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 80),
-              const Text(
-                'noma',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.black,
-                  letterSpacing: -0.8,
-                ),
+      appBar: AppBar(
+        title: const Text('Accedi'),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'OpenRunde',
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          color: AppColors.mainContrast,
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 24),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  AppTextField(
+                    label: 'Email o username',
+                    hint: 'Email o username',
+                    controller: _identifierController,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) {
+                        return 'Inserisci email o username';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  AppTextField(
+                    label: 'Password',
+                    hint: '••••••••',
+                    controller: _passwordController,
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) => _submit(),
+                    validator: (v) {
+                      if (v == null || v.isEmpty) return 'Inserisci password';
+                      if (v.length < 6) return 'Minimo 6 caratteri';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 32),
+                  AppButton(
+                    label: 'Accedi',
+                    onPressed: _submit,
+                    isLoading: isLoading,
+                  ),
+                ],
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'Accedi al tuo account',
-                style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 32),
+            Center(
+              child: AppLink(
+                text: 'Non hai un account? ',
+                linkText: 'Registrati',
+                onTap: () => context.go('/register'),
               ),
-              const SizedBox(height: 48),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    AppTextField(
-                      label: 'Email o username',
-                      hint: 'Email o username',
-                      controller: _identifierController,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      validator: (v) {
-                        if (v == null || v.trim().isEmpty) {
-                          return 'Inserisci email o username';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    AppTextField(
-                      label: 'Password',
-                      hint: '••••••••',
-                      controller: _passwordController,
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) => _submit(),
-                      validator: (v) {
-                        if (v == null || v.isEmpty) return 'Inserisci password';
-                        if (v.length < 6) return 'Minimo 6 caratteri';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 32),
-                    AppButton(
-                      label: 'Accedi',
-                      onPressed: _submit,
-                      isLoading: isLoading,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32),
-              Center(
-                child: AppLink(
-                  text: 'Non hai un account? ',
-                  linkText: 'Registrati',
-                  onTap: () => context.go('/register'),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

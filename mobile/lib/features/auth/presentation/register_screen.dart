@@ -17,7 +17,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _nicknameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   DateTime? _birthDate;
@@ -25,7 +25,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   void dispose() {
-    _nicknameController.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -39,7 +39,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     await ref.read(authNotifierProvider.notifier).signUp(
           email: _emailController.text.trim(),
           password: _passwordController.text,
-          nickname: _nicknameController.text.trim(),
+          username: _usernameController.text.trim(),
           birthDate: _birthDate!,
         );
 
@@ -62,103 +62,95 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 80),
-              const Text(
-                'Crea account',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.black,
-                  letterSpacing: -0.64,
-                ),
+      appBar: AppBar(
+        title: const Text('Registrati'),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'OpenRunde',
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          color: AppColors.mainContrast,
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 24),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  AppTextField(
+                    label: 'Username',
+                    hint: 'Username',
+                    controller: _usernameController,
+                    textInputAction: TextInputAction.next,
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) {
+                        return 'Inserisci username';
+                      }
+                      if (v.trim().length < 3) return 'Minimo 3 caratteri';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  AppTextField(
+                    label: 'Email',
+                    hint: 'Email',
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) {
+                        return 'Inserisci email';
+                      }
+                      if (!v.contains('@')) return 'Email non valida';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  AppTextField(
+                    label: 'Password',
+                    hint: '••••••••',
+                    controller: _passwordController,
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    validator: (v) {
+                      if (v == null || v.isEmpty) return 'Inserisci password';
+                      if (v.length < 6) return 'Minimo 6 caratteri';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  AppDateField(
+                    label: 'Data di nascita',
+                    value: _birthDate,
+                    onChanged: (d) => setState(() {
+                      _birthDate = d;
+                      _showDateError = false;
+                    }),
+                    errorText: _showDateError ? 'Seleziona la data di nascita' : null,
+                  ),
+                  const SizedBox(height: 32),
+                  AppButton(
+                    label: 'Registrati',
+                    onPressed: _submit,
+                    isLoading: isLoading,
+                  ),
+                ],
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'Unisciti a noma',
-                style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 32),
+            Center(
+              child: AppLink(
+                text: 'Hai già un account? ',
+                linkText: 'Accedi',
+                onTap: () => context.go('/login'),
               ),
-              const SizedBox(height: 48),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    AppTextField(
-                      label: 'Nickname',
-                      hint: 'Username',
-                      controller: _nicknameController,
-                      textInputAction: TextInputAction.next,
-                      validator: (v) {
-                        if (v == null || v.trim().isEmpty) {
-                          return 'Inserisci nickname';
-                        }
-                        if (v.trim().length < 3) return 'Minimo 3 caratteri';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    AppTextField(
-                      label: 'Email',
-                      hint: 'Email',
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      validator: (v) {
-                        if (v == null || v.trim().isEmpty) {
-                          return 'Inserisci email';
-                        }
-                        if (!v.contains('@')) return 'Email non valida';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    AppTextField(
-                      label: 'Password',
-                      hint: '••••••••',
-                      controller: _passwordController,
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      validator: (v) {
-                        if (v == null || v.isEmpty) return 'Inserisci password';
-                        if (v.length < 6) return 'Minimo 6 caratteri';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    AppDateField(
-                      label: 'Data di nascita',
-                      value: _birthDate,
-                      onChanged: (d) => setState(() {
-                        _birthDate = d;
-                        _showDateError = false;
-                      }),
-                      errorText: _showDateError ? 'Seleziona la data di nascita' : null,
-                    ),
-                    const SizedBox(height: 32),
-                    AppButton(
-                      label: 'Registrati',
-                      onPressed: _submit,
-                      isLoading: isLoading,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32),
-              Center(
-                child: AppLink(
-                  text: 'Hai già un account? ',
-                  linkText: 'Accedi',
-                  onTap: () => context.go('/login'),
-                ),
-              ),
-              const SizedBox(height: 32),
-            ],
-          ),
+            ),
+            const SizedBox(height: 32),
+          ],
         ),
       ),
     );

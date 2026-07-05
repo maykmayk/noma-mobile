@@ -39,14 +39,14 @@ class SupabaseAuthRepository implements AuthRepository {
   Future<void> signUp({
     required String email,
     required String password,
-    required String nickname,
+    required String username,
     required DateTime birthDate,
   }) async {
     await _client.auth.signUp(
       email: email,
       password: password,
       data: {
-        'nickname': nickname,
+        'username': username,
         'birth_date':
             '${birthDate.year}-${birthDate.month.toString().padLeft(2, '0')}-${birthDate.day.toString().padLeft(2, '0')}',
       },

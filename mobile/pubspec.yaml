@@ -76,6 +76,7 @@ flutter:
     - assets/icons/
     - assets/avatars/
     - assets/translations/
+    - assets/flags/
 
   fonts:
     - family: OpenRunde

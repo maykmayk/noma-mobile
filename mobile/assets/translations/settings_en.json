@@ -1,6 +1,18 @@
 {
   "settings": {
     "title": "Settings",
-    "language": "Language"
+    "section_main": "Settings",
+    "section_help": "Help & Feedback",
+    "account": "Account",
+    "app_icon": "App Icon",
+    "language": "Language",
+    "voice": "Voice",
+    "haptic_feedback": "Haptic Feedback",
+    "privacy_policy": "Privacy Policy",
+    "feedback": "Feedback",
+    "language_sheet": {
+      "title": "Language",
+      "change_button": "Change language"
+    }
   }
 }

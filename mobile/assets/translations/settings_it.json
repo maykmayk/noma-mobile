@@ -1,6 +1,18 @@
 {
   "settings": {
     "title": "Impostazioni",
-    "language": "Lingua"
+    "section_main": "Impostazioni",
+    "section_help": "Aiuto e Feedback",
+    "account": "Account",
+    "app_icon": "Icona App",
+    "language": "Lingua",
+    "voice": "Voce",
+    "haptic_feedback": "Feedback Aptico",
+    "privacy_policy": "Informativa sulla Privacy",
+    "feedback": "Feedback",
+    "language_sheet": {
+      "title": "Lingua",
+      "change_button": "Cambia lingua"
+    }
   }
 }

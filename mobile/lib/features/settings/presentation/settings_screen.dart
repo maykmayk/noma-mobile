@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/collapsing_page_scaffold.dart';
 import '../../../shared/widgets/settings_section.dart';
+import 'widgets/language_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -17,27 +17,43 @@ class SettingsScreen extends StatelessWidget {
           sliver: SliverList(
             delegate: SliverChildListDelegate([
               SettingsSection(
-                label: 'Settings',
+                label: 'settings.section_main'.tr(),
                 items: [
-                  SettingsItem(icon: 'assets/icons/ic_account.svg', title: 'Account'),
-                  SettingsItem(icon: 'assets/icons/ic_app_icon.svg', title: 'App Icon'),
-                  SettingsItem(icon: 'assets/icons/ic_language.svg', title: 'Language'),
-                  SettingsItem(icon: 'assets/icons/ic_voice.svg', title: 'Voice'),
+                  SettingsItem(
+                    icon: 'assets/icons/ic_account.svg',
+                    title: 'settings.account'.tr(),
+                  ),
+                  SettingsItem(
+                    icon: 'assets/icons/ic_app_icon.svg',
+                    title: 'settings.app_icon'.tr(),
+                  ),
+                  SettingsItem(
+                    icon: 'assets/icons/ic_language.svg',
+                    title: 'settings.language'.tr(),
+                    onTap: () => showLanguageSheet(context),
+                  ),
+                  SettingsItem(
+                    icon: 'assets/icons/ic_voice.svg',
+                    title: 'settings.voice'.tr(),
+                  ),
                   SettingsItem(
                     icon: 'assets/icons/ic_haptic.svg',
-                    title: 'Haptic Feedback',
+                    title: 'settings.haptic_feedback'.tr(),
                     isLast: true,
                   ),
                 ],
               ),
               const SizedBox(height: 28),
               SettingsSection(
-                label: 'Help & Feedback',
+                label: 'settings.section_help'.tr(),
                 items: [
-                  SettingsItem(icon: 'assets/icons/ic_privacy.svg', title: 'Privacy Policy'),
+                  SettingsItem(
+                    icon: 'assets/icons/ic_privacy.svg',
+                    title: 'settings.privacy_policy'.tr(),
+                  ),
                   SettingsItem(
                     icon: 'assets/icons/ic_feedback.svg',
-                    title: 'Feedback',
+                    title: 'settings.feedback'.tr(),
                     isLast: true,
                   ),
                 ],

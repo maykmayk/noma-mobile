@@ -41,7 +41,7 @@ dependencies:
   health: ^12.2.0
 
   # File picker (GPX import)
-  file_picker: ^8.3.7
+  file_picker: ^10.3.10
 
   # Permissions
   permission_handler: ^11.3.1

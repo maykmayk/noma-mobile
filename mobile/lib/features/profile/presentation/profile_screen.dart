@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../shared/widgets/page_header.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../auth/presentation/auth_notifier.dart';
 import '../domain/profile_stats.dart';
 import 'profile_providers.dart';
+import 'widgets/profile_calendar.dart';
 import 'widgets/profile_header.dart';
 import 'widgets/profile_header_skeleton.dart';
 import 'widgets/profile_kpi.dart';
@@ -22,6 +24,7 @@ class ProfileScreen extends ConsumerWidget {
     final user = ref.watch(currentUserProvider);
     final profileAsync = ref.watch(currentProfileProvider);
     final statsAsync = ref.watch(profileStatsProvider);
+    final rideDatesAsync = ref.watch(rideDatesProvider);
     final isSigningOut = ref.watch(authNotifierProvider).isLoading;
 
     return Scaffold(
@@ -74,6 +77,22 @@ class ProfileScreen extends ConsumerWidget {
                 loading: () => const ProfileKpiSkeleton(),
                 error: (_, __) => const ProfileKpi(stats: _zeroStats),
                 data: (stats) => ProfileKpi(stats: stats),
+              ),
+              const SizedBox(height: 48),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'profile.calendar.title'.tr(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.mainContrast,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              ProfileCalendar(
+                rideDays: rideDatesAsync.valueOrNull ?? const {},
               ),
             ],
           ),

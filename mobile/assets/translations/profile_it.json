@@ -4,6 +4,9 @@
     "kpi": {
       "rides": "corse",
       "km": "km percorsi"
+    },
+    "calendar": {
+      "title": "Calendario"
     }
   }
 }

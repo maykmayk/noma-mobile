@@ -4,6 +4,9 @@
     "kpi": {
       "rides": "rides",
       "km": "km travelled"
+    },
+    "calendar": {
+      "title": "Calendar"
     }
   }
 }

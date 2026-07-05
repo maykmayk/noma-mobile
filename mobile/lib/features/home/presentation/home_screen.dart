@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,10 +9,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('noma'),
+        title: Text('home.title'.tr()),
       ),
-      body: const Center(
-        child: Text('Home'),
+      body: Center(
+        child: Text('home.body'.tr()),
       ),
     );
   }

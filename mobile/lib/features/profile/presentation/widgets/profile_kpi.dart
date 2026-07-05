@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/profile_stats.dart';
@@ -16,8 +17,18 @@ class ProfileKpi extends StatelessWidget {
 
     return Row(
       children: [
-        Expanded(child: _KpiItem(value: '${stats.ridesCount}', label: 'rides')),
-        Expanded(child: _KpiItem(value: kmLabel, label: 'km travelled')),
+        Expanded(
+          child: _KpiItem(
+            value: '${stats.ridesCount}',
+            label: 'profile.kpi.rides'.tr(),
+          ),
+        ),
+        Expanded(
+          child: _KpiItem(
+            value: kmLabel,
+            label: 'profile.kpi.km'.tr(),
+          ),
+        ),
       ],
     );
   }

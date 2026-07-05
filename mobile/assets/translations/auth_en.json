@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "email_label": "Email or username",
+      "email_hint": "Email or username",
+      "password_label": "Password",
+      "password_hint": "••••••••",
+      "submit": "Sign in",
+      "no_account": "Don't have an account? ",
+      "register_link": "Sign up",
+      "error": {
+        "email_required": "Enter email or username",
+        "password_required": "Enter password",
+        "password_min": "Minimum 6 characters",
+        "sign_in_failed": "Invalid credentials"
+      }
+    },
+    "register": {
+      "title": "Sign up",
+      "username_label": "Username",
+      "username_hint": "Username",
+      "email_label": "Email",
+      "email_hint": "Email",
+      "password_label": "Password",
+      "password_hint": "••••••••",
+      "birthdate_label": "Date of birth",
+      "submit": "Sign up",
+      "has_account": "Already have an account? ",
+      "login_link": "Sign in",
+      "error": {
+        "username_required": "Enter username",
+        "username_min": "Minimum 3 characters",
+        "email_required": "Enter email",
+        "email_invalid": "Invalid email",
+        "password_required": "Enter password",
+        "password_min": "Minimum 6 characters",
+        "birthdate_required": "Select your date of birth",
+        "sign_up_failed": "Sign up failed, please try again"
+      }
+    }
+  }
+}

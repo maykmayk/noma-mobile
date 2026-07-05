@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RideScreen extends StatelessWidget {
@@ -8,10 +9,10 @@ class RideScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('noma'),
+        title: Text('ride.title'.tr()),
       ),
-      body: const Center(
-        child: Text('Ride'),
+      body: Center(
+        child: Text('ride.body'.tr()),
       ),
     );
   }

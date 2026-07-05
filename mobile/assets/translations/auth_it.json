@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "login": {
+      "title": "Accedi",
+      "email_label": "Email o username",
+      "email_hint": "Email o username",
+      "password_label": "Password",
+      "password_hint": "••••••••",
+      "submit": "Accedi",
+      "no_account": "Non hai un account? ",
+      "register_link": "Registrati",
+      "error": {
+        "email_required": "Inserisci email o username",
+        "password_required": "Inserisci password",
+        "password_min": "Minimo 6 caratteri",
+        "sign_in_failed": "Credenziali non valide"
+      }
+    },
+    "register": {
+      "title": "Registrati",
+      "username_label": "Username",
+      "username_hint": "Username",
+      "email_label": "Email",
+      "email_hint": "Email",
+      "password_label": "Password",
+      "password_hint": "••••••••",
+      "birthdate_label": "Data di nascita",
+      "submit": "Registrati",
+      "has_account": "Hai già un account? ",
+      "login_link": "Accedi",
+      "error": {
+        "username_required": "Inserisci username",
+        "username_min": "Minimo 3 caratteri",
+        "email_required": "Inserisci email",
+        "email_invalid": "Email non valida",
+        "password_required": "Inserisci password",
+        "password_min": "Minimo 6 caratteri",
+        "birthdate_required": "Seleziona la data di nascita",
+        "sign_up_failed": "Registrazione fallita, riprova"
+      }
+    }
+  }
+}

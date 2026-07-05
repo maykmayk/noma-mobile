@@ -1,0 +1,9 @@
+{
+  "profile": {
+    "title": "Profile",
+    "kpi": {
+      "rides": "rides",
+      "km": "km travelled"
+    }
+  }
+}

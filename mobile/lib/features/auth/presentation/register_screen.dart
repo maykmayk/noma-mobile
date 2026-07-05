@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -49,7 +50,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     if (error != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(error.toString()),
+          content: Text('auth.register.error.sign_up_failed'.tr()),
           backgroundColor: Colors.red.shade700,
         ),
       );
@@ -63,7 +64,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
-        title: const Text('Registrati'),
+        title: Text('auth.register.title'.tr()),
         titleTextStyle: const TextStyle(
           fontFamily: 'OpenRunde',
           fontSize: 36,
@@ -82,59 +83,69 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               child: Column(
                 children: [
                   AppTextField(
-                    label: 'Username',
-                    hint: 'Username',
+                    label: 'auth.register.username_label'.tr(),
+                    hint: 'auth.register.username_hint'.tr(),
                     controller: _usernameController,
                     textInputAction: TextInputAction.next,
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
-                        return 'Inserisci username';
+                        return 'auth.register.error.username_required'.tr();
                       }
-                      if (v.trim().length < 3) return 'Minimo 3 caratteri';
+                      if (v.trim().length < 3) {
+                        return 'auth.register.error.username_min'.tr();
+                      }
                       return null;
                     },
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
-                    label: 'Email',
-                    hint: 'Email',
+                    label: 'auth.register.email_label'.tr(),
+                    hint: 'auth.register.email_hint'.tr(),
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
-                        return 'Inserisci email';
+                        return 'auth.register.error.email_required'.tr();
                       }
-                      if (!v.contains('@')) return 'Email non valida';
+                      if (!v.contains('@')) {
+                        return 'auth.register.error.email_invalid'.tr();
+                      }
                       return null;
                     },
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
-                    label: 'Password',
-                    hint: '••••••••',
+                    label: 'auth.register.password_label'.tr(),
+                    hint: 'auth.register.password_hint'.tr(),
                     controller: _passwordController,
                     obscureText: true,
                     textInputAction: TextInputAction.done,
                     validator: (v) {
-                      if (v == null || v.isEmpty) return 'Inserisci password';
-                      if (v.length < 6) return 'Minimo 6 caratteri';
+                      if (v == null || v.isEmpty) {
+                        return 'auth.register.error.password_required'.tr();
+                      }
+                      if (v.length < 6) {
+                        return 'auth.register.error.password_min'.tr();
+                      }
                       return null;
                     },
                   ),
                   const SizedBox(height: 16),
                   AppDateField(
-                    label: 'Data di nascita',
+                    label: 'auth.register.birthdate_label'.tr(),
                     value: _birthDate,
                     onChanged: (d) => setState(() {
                       _birthDate = d;
                       _showDateError = false;
                     }),
-                    errorText: _showDateError ? 'Seleziona la data di nascita' : null,
+                    errorText: _showDateError
+                        ? 'auth.register.error.birthdate_required'.tr()
+                        : null,
                   ),
                   const SizedBox(height: 32),
                   AppButton(
-                    label: 'Registrati',
+                    label: 'auth.register.submit'.tr(),
                     onPressed: _submit,
                     isLoading: isLoading,
                   ),
@@ -144,8 +155,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             const SizedBox(height: 32),
             Center(
               child: AppLink(
-                text: 'Hai già un account? ',
-                linkText: 'Accedi',
+                text: 'auth.register.has_account'.tr(),
+                linkText: 'auth.register.login_link'.tr(),
                 onTap: () => context.go('/login'),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/theme/app_theme.dart';
@@ -16,14 +17,20 @@ class CustomTabBar extends StatelessWidget {
   /// Space between the top border and the icon+label group.
   final double topPadding;
 
-  static const _items = [
-    _TabItem(label: 'Home', assetPath: 'assets/icons/tab_home.svg'),
-    _TabItem(label: 'Ride', assetPath: 'assets/icons/tab_ride.svg'),
-    _TabItem(label: 'Profile', assetPath: 'assets/icons/tab_profile.svg'),
+  static const _assetPaths = [
+    'assets/icons/tab_home.svg',
+    'assets/icons/tab_ride.svg',
+    'assets/icons/tab_profile.svg',
   ];
 
   @override
   Widget build(BuildContext context) {
+    final labels = [
+      'common.nav.home'.tr(),
+      'common.nav.ride'.tr(),
+      'common.nav.profile'.tr(),
+    ];
+
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: AppColors.white,
@@ -36,7 +43,7 @@ class CustomTabBar extends StatelessWidget {
         child: SizedBox(
           height: 64,
           child: Row(
-            children: List.generate(_items.length, (i) {
+            children: List.generate(_assetPaths.length, (i) {
               final active = i == currentIndex;
               final color =
                   active ? AppColors.black : AppColors.textSecondary;
@@ -50,7 +57,7 @@ class CustomTabBar extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SvgPicture.asset(
-                          _items[i].assetPath,
+                          _assetPaths[i],
                           width: 22,
                           height: 22,
                           colorFilter:
@@ -58,7 +65,7 @@ class CustomTabBar extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          _items[i].label,
+                          labels[i],
                           style: TextStyle(
                             fontFamily: 'OpenRunde',
                             fontSize: 13,
@@ -76,11 +83,4 @@ class CustomTabBar extends StatelessWidget {
       ),
     );
   }
-}
-
-class _TabItem {
-  const _TabItem({required this.label, required this.assetPath});
-
-  final String label;
-  final String assetPath;
 }

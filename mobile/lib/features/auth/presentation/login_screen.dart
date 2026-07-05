@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (error != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(error.toString()),
+          content: Text('auth.login.error.sign_in_failed'.tr()),
           backgroundColor: Colors.red.shade700,
         ),
       );
@@ -51,7 +52,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
-        title: const Text('Accedi'),
+        title: Text('auth.login.title'.tr()),
         titleTextStyle: const TextStyle(
           fontFamily: 'OpenRunde',
           fontSize: 36,
@@ -70,35 +71,39 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: Column(
                 children: [
                   AppTextField(
-                    label: 'Email o username',
-                    hint: 'Email o username',
+                    label: 'auth.login.email_label'.tr(),
+                    hint: 'auth.login.email_hint'.tr(),
                     controller: _identifierController,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
-                        return 'Inserisci email o username';
+                        return 'auth.login.error.email_required'.tr();
                       }
                       return null;
                     },
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
-                    label: 'Password',
-                    hint: '••••••••',
+                    label: 'auth.login.password_label'.tr(),
+                    hint: 'auth.login.password_hint'.tr(),
                     controller: _passwordController,
                     obscureText: true,
                     textInputAction: TextInputAction.done,
                     onFieldSubmitted: (_) => _submit(),
                     validator: (v) {
-                      if (v == null || v.isEmpty) return 'Inserisci password';
-                      if (v.length < 6) return 'Minimo 6 caratteri';
+                      if (v == null || v.isEmpty) {
+                        return 'auth.login.error.password_required'.tr();
+                      }
+                      if (v.length < 6) {
+                        return 'auth.login.error.password_min'.tr();
+                      }
                       return null;
                     },
                   ),
                   const SizedBox(height: 32),
                   AppButton(
-                    label: 'Accedi',
+                    label: 'auth.login.submit'.tr(),
                     onPressed: _submit,
                     isLoading: isLoading,
                   ),
@@ -108,8 +113,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             const SizedBox(height: 32),
             Center(
               child: AppLink(
-                text: 'Non hai un account? ',
-                linkText: 'Registrati',
+                text: 'auth.login.no_account'.tr(),
+                linkText: 'auth.login.register_link'.tr(),
                 onTap: () => context.go('/register'),
               ),
             ),

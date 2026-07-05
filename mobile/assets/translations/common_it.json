@@ -1,0 +1,11 @@
+{
+  "common": {
+    "date_hint": "GG/MM/AAAA",
+    "date_done": "Fine",
+    "nav": {
+      "home": "Home",
+      "ride": "Ride",
+      "profile": "Profilo"
+    }
+  }
+}

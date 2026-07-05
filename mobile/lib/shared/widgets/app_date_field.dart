@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +8,7 @@ class AppDateField extends StatefulWidget {
   const AppDateField({
     super.key,
     required this.label,
-    this.hint = 'GG/MM/AAAA',
+    this.hint,
     required this.value,
     required this.onChanged,
     this.errorText,
@@ -16,7 +17,8 @@ class AppDateField extends StatefulWidget {
   });
 
   final String label;
-  final String hint;
+  /// If null, falls back to the localized hint ('common.date_hint').
+  final String? hint;
   final DateTime? value;
   final ValueChanged<DateTime> onChanged;
   final String? errorText;
@@ -73,6 +75,7 @@ class _AppDateFieldState extends State<AppDateField> {
   @override
   Widget build(BuildContext context) {
     final hasError = widget.errorText != null;
+    final hint = widget.hint ?? 'common.date_hint'.tr();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +105,7 @@ class _AppDateFieldState extends State<AppDateField> {
               children: [
                 Expanded(
                   child: Text(
-                    widget.value != null ? _format(widget.value!) : widget.hint,
+                    widget.value != null ? _format(widget.value!) : hint,
                     style: TextStyle(
                       fontSize: 16,
                       color: widget.value != null
@@ -163,9 +166,9 @@ class _IOSPicker extends StatelessWidget {
             children: [
               CupertinoButton(
                 onPressed: onDone,
-                child: const Text(
-                  'Fine',
-                  style: TextStyle(
+                child: Text(
+                  'common.date_done'.tr(),
+                  style: const TextStyle(
                     color: AppColors.black,
                     fontWeight: FontWeight.w600,
                   ),

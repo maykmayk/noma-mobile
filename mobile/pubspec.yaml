@@ -10,8 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.8
+  easy_localization: ^3.0.7
 
   # State management + DI
   flutter_riverpod: ^2.6.1
@@ -72,6 +75,7 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/avatars/
+    - assets/translations/
 
   fonts:
     - family: OpenRunde

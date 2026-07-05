@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,7 +26,7 @@ class ProfileScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: PageHeader(
-        title: 'Profile',
+        title: 'profile.title'.tr(),
         actions: [
           IconButton(
             icon: SvgPicture.asset(

@@ -1,10 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../shared/widgets/collapsing_page_scaffold.dart';
 import '../../../shared/widgets/settings_section.dart';
 import 'widgets/haptic_sheet.dart';
 import 'widgets/language_sheet.dart';
 import 'widgets/voice_sheet.dart';
+
+// TODO: replace with actual URLs
+const _kPrivacyUrl = 'https://www.instagram.com/mayk.gif/';
+const _kFeedbackUrl = 'https://www.instagram.com/mayk.gif/';
+
+Future<void> _openUrl(String url) async {
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+}
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -54,11 +66,13 @@ class SettingsScreen extends StatelessWidget {
                   SettingsItem(
                     icon: 'assets/icons/ic_privacy.svg',
                     title: 'settings.privacy_policy'.tr(),
+                    onTap: () => _openUrl(_kPrivacyUrl),
                   ),
                   SettingsItem(
                     icon: 'assets/icons/ic_feedback.svg',
                     title: 'settings.feedback'.tr(),
                     isLast: true,
+                    onTap: () => _openUrl(_kFeedbackUrl),
                   ),
                 ],
               ),

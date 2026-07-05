@@ -52,6 +52,9 @@ dependencies:
   # User preferences (non-sensitive)
   shared_preferences: ^2.3.2
 
+  # External links
+  url_launcher: ^6.3.1
+
   # Data models
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0

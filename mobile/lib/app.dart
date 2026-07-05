@@ -18,7 +18,7 @@ class NomaApp extends ConsumerWidget {
       theme: AppTheme.light,
       themeMode: ThemeMode.light,
       routerConfig: router,
-      debugShowCheckedModeBanner: config.isDev,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -76,11 +76,11 @@ class AppBottomSheet extends StatelessWidget {
             ),
             if (footer != null)
               Padding(
-                padding: EdgeInsets.fromLTRB(24, 12, 24, bottomPad + 24),
+                padding: EdgeInsets.fromLTRB(24, 12, 24, bottomPad),
                 child: footer!,
               ),
             if (footer == null)
-              SizedBox(height: bottomPad + 24),
+              SizedBox(height: bottomPad),
           ],
         ),
       ),

@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/collapsing_page_scaffold.dart';
 import '../../../shared/widgets/settings_section.dart';
+import 'widgets/haptic_sheet.dart';
 import 'widgets/language_sheet.dart';
+import 'widgets/voice_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -35,11 +37,13 @@ class SettingsScreen extends StatelessWidget {
                   SettingsItem(
                     icon: 'assets/icons/ic_voice.svg',
                     title: 'settings.voice'.tr(),
+                    onTap: () => showVoiceSheet(context),
                   ),
                   SettingsItem(
                     icon: 'assets/icons/ic_haptic.svg',
                     title: 'settings.haptic_feedback'.tr(),
                     isLast: true,
+                    onTap: () => showHapticSheet(context),
                   ),
                 ],
               ),

@@ -10,9 +10,20 @@
     "haptic_feedback": "Haptic Feedback",
     "privacy_policy": "Privacy Policy",
     "feedback": "Feedback",
+    "save": "Save",
     "language_sheet": {
       "title": "Language",
       "change_button": "Change language"
+    },
+    "voice_sheet": {
+      "title": "Voice",
+      "label": "Voice Navigation",
+      "description": "Audio turn-by-turn instructions during navigation."
+    },
+    "haptic_sheet": {
+      "title": "Haptic Feedback",
+      "label": "Vibration",
+      "description": "Vibrate before upcoming turns during navigation."
     }
   }
 }

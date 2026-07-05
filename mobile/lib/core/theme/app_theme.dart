@@ -113,7 +113,7 @@ class AppTheme {
         centerTitle: false,
         toolbarHeight: AppSpacing.headerHeight,
         titleSpacing: AppSpacing.pageX,
-        actionsPadding: EdgeInsets.only(right: AppSpacing.pageX),
+        actionsPadding: EdgeInsets.only(right: 20),
         titleTextStyle: TextStyle(
           fontFamily: _fontFamily,
           fontSize: 28,

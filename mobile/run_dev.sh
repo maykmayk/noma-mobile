@@ -13,6 +13,7 @@ fi
 
 flutter run \
   --target lib/main_dev.dart \
+  --no-enable-impeller \
   --dart-define=SUPABASE_URL="$SUPABASE_URL" \
   --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY" \
   "$@"

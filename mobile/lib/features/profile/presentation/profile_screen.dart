@@ -35,8 +35,9 @@ class ProfileScreen extends ConsumerWidget {
             ),
             onPressed: () => context.push('/profile/settings'),
           ),
-          const SizedBox(width: 16),
-          IconButton(
+          Transform.translate(
+            offset: const Offset(-8, 0),
+            child: IconButton(
             icon: isSigningOut
                 ? const SizedBox(
                     width: 20,
@@ -51,6 +52,7 @@ class ProfileScreen extends ConsumerWidget {
             onPressed: isSigningOut
                 ? null
                 : () => ref.read(authNotifierProvider.notifier).signOut(),
+          ),
           ),
         ],
       ),

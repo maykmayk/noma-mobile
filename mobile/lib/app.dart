@@ -16,7 +16,7 @@ class NomaApp extends ConsumerWidget {
     return MaterialApp.router(
       title: config.appName,
       theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.light,
       routerConfig: router,
       debugShowCheckedModeBanner: config.isDev,
     );

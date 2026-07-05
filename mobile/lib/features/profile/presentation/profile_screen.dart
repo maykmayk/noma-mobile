@@ -9,18 +9,35 @@ import '../../auth/presentation/auth_notifier.dart';
 import '../domain/profile_stats.dart';
 import 'profile_providers.dart';
 import 'widgets/profile_calendar.dart';
+import 'widgets/profile_calendar_skeleton.dart';
 import 'widgets/profile_header.dart';
 import 'widgets/profile_header_skeleton.dart';
 import 'widgets/profile_kpi.dart';
 import 'widgets/profile_kpi_skeleton.dart';
+import 'widgets/profile_streak_banner.dart';
+import 'widgets/profile_streak_banner_skeleton.dart';
 
 const _zeroStats = ProfileStats(ridesCount: 0, kmTravelled: 0);
 
-class ProfileScreen extends ConsumerWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final topPadding = MediaQuery.paddingOf(context).top;
     final user = ref.watch(currentUserProvider);
     final profileAsync = ref.watch(currentProfileProvider);
     final statsAsync = ref.watch(profileStatsProvider);
@@ -28,8 +45,10 @@ class ProfileScreen extends ConsumerWidget {
     final isSigningOut = ref.watch(authNotifierProvider).isLoading;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: PageHeader(
         title: 'profile.title'.tr(),
+        scrollController: _scrollController,
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -42,26 +61,32 @@ class ProfileScreen extends ConsumerWidget {
           Transform.translate(
             offset: const Offset(-8, 0),
             child: IconButton(
-            icon: isSigningOut
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : SvgPicture.asset(
-                    'assets/icons/ic_logout.svg',
-                    width: 20,
-                    height: 20,
-                  ),
-            onPressed: isSigningOut
-                ? null
-                : () => ref.read(authNotifierProvider.notifier).signOut(),
-          ),
+              icon: isSigningOut
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : SvgPicture.asset(
+                      'assets/icons/ic_logout.svg',
+                      width: 20,
+                      height: 20,
+                    ),
+              onPressed: isSigningOut
+                  ? null
+                  : () => ref.read(authNotifierProvider.notifier).signOut(),
+            ),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+        controller: _scrollController,
+        padding: EdgeInsets.fromLTRB(
+          28,
+          topPadding + AppSpacing.headerHeight + 32,
+          28,
+          32,
+        ),
         child: SizedBox(
           width: double.infinity,
           child: Column(
@@ -78,7 +103,13 @@ class ProfileScreen extends ConsumerWidget {
                 error: (_, __) => const ProfileKpi(stats: _zeroStats),
                 data: (stats) => ProfileKpi(stats: stats),
               ),
-              const SizedBox(height: 48),
+              const SizedBox(height: 32),
+              rideDatesAsync.when(
+                loading: () => const ProfileStreakBannerSkeleton(),
+                error: (_, __) => const SizedBox.shrink(),
+                data: (rideDays) => ProfileStreakBanner(rideDays: rideDays),
+              ),
+              const SizedBox(height: 32),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -91,8 +122,10 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              ProfileCalendar(
-                rideDays: rideDatesAsync.valueOrNull ?? const {},
+              rideDatesAsync.when(
+                loading: () => const ProfileCalendarSkeleton(),
+                error: (_, __) => const ProfileCalendar(),
+                data: (rideDays) => ProfileCalendar(rideDays: rideDays),
               ),
             ],
           ),

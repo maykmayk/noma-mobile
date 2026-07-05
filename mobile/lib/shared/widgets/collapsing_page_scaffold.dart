@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_theme.dart';
+import 'app_bar_blur_background.dart';
 
 /// Full-page scaffold with a collapsing header.
 ///
@@ -113,7 +114,7 @@ class _CollapsingHeaderDelegate extends SliverPersistentHeaderDelegate {
       fit: StackFit.expand,
       children: [
         if (progress > 0)
-          Positioned.fill(child: _BlurBackground(progress: progress)),
+          Positioned.fill(child: AppBarBlurBackground(progress: progress)),
         Positioned(
           top: topPadding + (AppSpacing.headerHeight - 48) / 2,
           left: 4,
@@ -166,35 +167,3 @@ class _CollapsingHeaderDelegate extends SliverPersistentHeaderDelegate {
       old.progress != progress;
 }
 
-class _BlurBackground extends StatelessWidget {
-  const _BlurBackground({required this.progress});
-
-  final double progress;
-
-  @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      shaderCallback: (rect) => LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Colors.white.withValues(alpha: progress),
-          Colors.transparent,
-        ],
-        stops: const [0.65, 1.0],
-      ).createShader(rect),
-      blendMode: BlendMode.dstIn,
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ui.ImageFilter.blur(
-            sigmaX: 24 * progress,
-            sigmaY: 24 * progress,
-          ),
-          child: Container(
-            color: Colors.white.withValues(alpha: 0.82 * progress),
-          ),
-        ),
-      ),
-    );
-  }
-}

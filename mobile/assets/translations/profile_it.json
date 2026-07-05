@@ -7,6 +7,13 @@
     },
     "calendar": {
       "title": "Calendario"
+    },
+    "streak": {
+      "title": {
+        "one": "Sei in striscia da {} settimana!",
+        "other": "Sei in striscia da {} settimane!"
+      },
+      "subtitle": "Continua così, non fermarti!"
     }
   }
 }

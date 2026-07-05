@@ -7,6 +7,13 @@
     },
     "calendar": {
       "title": "Calendar"
+    },
+    "streak": {
+      "title": {
+        "one": "You're on a {} week streak!",
+        "other": "You're on a {} weeks streak!"
+      },
+      "subtitle": "Keep it up with the hustle!"
     }
   }
 }
